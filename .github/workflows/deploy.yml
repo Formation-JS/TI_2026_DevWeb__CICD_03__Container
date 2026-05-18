@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: Tu té tronc près 🚨
           to: ${{ vars.MAIL_VICTIME }}
-          from: CICD Demo
+          from: ${{ vars.MAIL_USER }}
           body: <h1>Boum !</h1>
       - name: Kill deploy
         run: |
