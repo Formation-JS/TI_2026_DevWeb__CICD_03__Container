@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  DOCKERHUB_TAG: ${{ vars.DOCKERHUB_USERNAME }}/${{ DOCKERHUB_REPO }}:latest
+  DOCKERHUB_TAG: ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.DOCKERHUB_REPO }}:latest
 
 jobs:
   #TODO Ajouter un job pour lancer les tests (quand il y en aura)
