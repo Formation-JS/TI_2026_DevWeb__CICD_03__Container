@@ -1,6 +1,6 @@
 # Build l'application
 ## Image de base
-FROM node:alpine-24 AS build
+FROM node:26-alpine AS build
 
 ## Définir un répertoire de travail
 WORKDIR /app
