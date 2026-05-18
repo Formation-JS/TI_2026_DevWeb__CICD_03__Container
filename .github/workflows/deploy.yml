@@ -9,6 +9,26 @@ env:
   DOCKERHUB_TAG: ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.DOCKERHUB_REPO }}:latest
 
 jobs:
+  mail_wrong_branch:
+    if: ${{ github.ref != 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send alert mail
+        uses: dawidd6/action-send-mail@v17
+        with:
+          server_address: ${{ vars.MAIL_SERVER }}
+          server_port: 465
+          secure: true
+          username: ${{ vars.MAIL_USER }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: Tu té tronc près 🚨
+          to: ${{ ${{ vars.MAIL_VICTIME }} }}
+          from: CICD Demo
+          body: <h1>Boum !</h1>
+      - name: Kill deploy
+        run: |
+          echo "Deploiement d'une branche non autorisé !"
+          exit 1
   #TODO Ajouter un job pour lancer les tests (quand il y en aura)
   build_container:
     runs-on: ubuntu-latest
