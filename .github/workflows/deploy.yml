@@ -22,7 +22,7 @@ jobs:
           username: ${{ vars.MAIL_USER }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: Tu té tronc près 🚨
-          to: ${{ ${{ vars.MAIL_VICTIME }} }}
+          to: ${{ vars.MAIL_VICTIME }}
           from: CICD Demo
           body: <h1>Boum !</h1>
       - name: Kill deploy
@@ -31,6 +31,7 @@ jobs:
           exit 1
   #TODO Ajouter un job pour lancer les tests (quand il y en aura)
   build_container:
+    needs: mail_wrong_branch
     runs-on: ubuntu-latest
     steps:
       - name: Checkout # Récuperation du code de repo git
