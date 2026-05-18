@@ -2,6 +2,8 @@ name: Deploy container on render.com
 
 on: 
   workflow_dispatch:
+  push:
+    branches: [main]
 
 env:
   DOCKERHUB_TAG: ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.DOCKERHUB_REPO }}:latest
@@ -23,4 +25,9 @@ jobs:
         with:
           push: ${{ github.ref == 'refs/heads/main' }} # Ok si branch main
           tags: ${{ env.DOCKERHUB_TAG }}
-  
+  auto_deploy:
+    needs: build_container
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger deploy # Lancer la mise à jours sur render.com
+        run: curl ${{ secrets.RENDER_TRIGGER_URL }}
