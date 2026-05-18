@@ -10,10 +10,10 @@ env:
 
 jobs:
   mail_wrong_branch:
-    if: ${{ github.ref != 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Send alert mail
+        if: ${{ github.ref != 'refs/heads/main' }}
         uses: dawidd6/action-send-mail@v17
         with:
           server_address: ${{ vars.MAIL_SERVER }}
@@ -26,6 +26,7 @@ jobs:
           from: ${{ vars.MAIL_USER }}
           body: <h1>Boum !</h1>
       - name: Kill deploy
+        if: ${{ github.ref != 'refs/heads/main' }}
         run: |
           echo "Deploiement d'une branche non autorisé !"
           exit 1
